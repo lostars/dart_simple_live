@@ -82,6 +82,7 @@ jobs:
       - name: Build IPA
         run: |
           cd simple_live_app
+          flutter clean
           flutter build ios --release --no-codesign
       
       #创建未签名ipa
