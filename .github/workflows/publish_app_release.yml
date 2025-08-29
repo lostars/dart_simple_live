@@ -189,8 +189,7 @@ jobs:
       # 签出代码
       - uses: actions/checkout@v6
         with:
-          ref: master
-
+          ref: release
       # 设置Flutter环境
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -262,7 +261,7 @@ jobs:
       # 签出代码
       - uses: actions/checkout@v6
         with:
-          ref: master
+          ref: release
       # 设置Flutter环境
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
