@@ -21,7 +21,7 @@ jobs:
       #签出代码
       - uses: actions/checkout@v6
         with:
-          ref: master
+          ref: release
 
       # device_info_plus 12.4.0 使用 iOS 26.1 SDK 新增的 isiOSAppOnVision API。
       # macos-15-intel 默认使用 Xcode 16.4，因此显式选择 runner 已安装的新版本。
