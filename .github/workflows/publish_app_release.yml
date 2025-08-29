@@ -4,6 +4,8 @@ on:
   push:
     tags:
       - "v*"
+    branches:
+      - release
 
 env:
   JAVA_VERSION: "17"
