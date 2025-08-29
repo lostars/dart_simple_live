@@ -4,8 +4,6 @@ on:
   push:
     tags:
       - "v*"
-    branches:
-      - release
 jobs:
   build-mac-ios-android:
     runs-on: macos-latest
