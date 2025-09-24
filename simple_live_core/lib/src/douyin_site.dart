@@ -13,7 +13,28 @@ class DouyinSite implements LiveSite {
   String name = "抖音直播";
 
   @override
-  LiveDanmaku getDanmaku() => DouyinDanmaku();
+  LiveDanmaku getDanmaku() =>
+      DouyinDanmaku()..setSignatureFunction(getSignature);
+
+  Future<String> Function(String, String) getAbogusUrl =
+      (url, userAgent) async {
+    throw Exception(
+        "You must call setAbogusUrlFunction to set the function first");
+  };
+
+  void setAbogusUrlFunction(Future<String> Function(String, String) func) {
+    getAbogusUrl = func;
+  }
+
+  Future<String> Function(String, String) getSignature =
+      (roomId, uniqueId) async {
+    throw Exception(
+        "You must call setSignatureFunction to set the function first");
+  };
+
+  void setSignatureFunction(Future<String> Function(String, String) func) {
+    getSignature = func;
+  }
 
   static const String kDefaultUserAgent =
       "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36 Edg/125.0.0.0";
@@ -130,7 +151,7 @@ class DouyinSite implements LiveSite {
       "partition_type": partitionType,
       "req_from": '2'
     });
-    var requestUrl = await getAbogusUrl(uri.toString());
+    var requestUrl = await getAbogusUrl(uri.toString(), kDefaultUserAgent);
 
     var result = await HttpClient.instance.getJson(
       requestUrl,
@@ -180,7 +201,7 @@ class DouyinSite implements LiveSite {
       "partition_type": '1',
       "req_from": '2'
     });
-    var requestUrl = await getAbogusUrl(uri.toString());
+    var requestUrl = await getAbogusUrl(uri.toString(), kDefaultUserAgent);
 
     var result = await HttpClient.instance.getJson(
       requestUrl,
@@ -429,7 +450,7 @@ class DouyinSite implements LiveSite {
       },
     );
 
-    var renderData = RegExp(r'\{\\"state\\":\{\\"isLiveModal.*?\]\\n')
+    var renderData = RegExp(r'\{\\"state\\":\{\\"appStore.*?\]\\n')
             .firstMatch(result)
             ?.group(0) ??
         "";
@@ -466,7 +487,7 @@ class DouyinSite implements LiveSite {
       "browser_name": "Edge",
       "browser_version": "125.0.0.0"
     });
-    var requestUrl = await getAbogusUrl(uri.toString());
+    var requestUrl = await getAbogusUrl(uri.toString(), kDefaultUserAgent);
 
     var requestHeader = await getRequestHeaders();
     var result = await HttpClient.instance.getJson(
@@ -705,25 +726,5 @@ class DouyinSite implements LiveSite {
     }
     return int.tryParse(stringBuffer.toString()) ??
         Random().nextInt(1000000000);
-  }
-
-  /// 读取A-Bogus签名后的URL
-  /// - [url] 原始URL
-  /// - 返回签名后的URL
-  ///
-  /// 服务端代码：https://github.com/dengmin/a-bogus，请自行部署后使用
-  Future<String> getAbogusUrl(String url) async {
-    try {
-      var signResult = await HttpClient.instance.postJson(
-        "https://dy.nsapps.cn/abogus",
-        queryParameters: {},
-        header: {"Content-Type": "application/json"},
-        data: {"url": url, "userAgent": kDefaultUserAgent},
-      );
-      return signResult["data"]["url"];
-    } catch (e) {
-      CoreLog.error(e);
-      return url;
-    }
   }
 }
