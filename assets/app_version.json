@@ -1,7 +1,7 @@
 {
-    "version": "1.9.3",
-    "version_num": 10903,
-    "version_desc": "",
+    "version": "1.10.1",
+    "version_num": 11001,
+    "version_desc": "release 1.10.1+11001",
     "prerelease":false,
     "download_url": "https://github.com/lostars/dart_simple_live/releases"
 }
