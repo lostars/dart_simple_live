@@ -1,6 +1,6 @@
 {
-    "version": "1.11.2",
-    "version_num": 11102,
+    "version": "1.11.3",
+    "version_num": 11103,
     "version_desc": "",
     "prerelease":false,
     "download_url": "https://github.com/lostars/dart_simple_live/releases"
