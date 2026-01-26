@@ -2,9 +2,9 @@ name: app-build-action-dev
 
 on:
   workflow_dispatch:
-  push:
-    tags:
-      - "dev_v*"
+#  push:
+#    tags:
+#      - "dev_v*"
 
 jobs:
   # 打包Android、iOS、Mac

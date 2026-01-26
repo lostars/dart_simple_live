@@ -1,9 +1,10 @@
 name: app-build-action
 #推送Tag时触发
 on:
-    push:
-        tags:
-            - "dev_tv_v*"
+  workflow_dispatch:
+#    push:
+#        tags:
+#            - "dev_tv_v*"
 jobs:
     build-tv:
         runs-on: macos-latest
